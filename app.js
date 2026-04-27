@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const middlewareError = require('./errors/errors');
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ app.use(express.json());
 
 const contatoRouter = require('./routes/contatoRoutes');
 app.use('/contatos', contatoRouter);
+app.use(middlewareError); // Adiciona o middleware de erro para rotas não encontradas
 
 mongoose.connect(process.env.MONGODB_URI);
 const db = mongoose.connection;
